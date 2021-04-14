@@ -9,7 +9,7 @@
 | Name  |  Column         |  Type   |  Nullable | Default       |   Example      |  Comments   |            
 |-------|-----------------|---------|-----------|---------------|----------------|-------------|
 | Tasks | id              | Int     |  false    | auto increment| Primary Key    | PRIMARY KEY |
-| Tasks | cate_id         | Int     |  false    |               | Cate Id        |             |
+| Tasks | cat_id          | Int     |  true     |               | Cat Id         |             |
 | Tasks | name            | String  |  false    |               | Task Name      |             |
 | Tasks | is_finished     | Boolean |  true     |               | Is Finished    |             |
 | Tasks | date            | String  |  false    |               | Finished Date  |             |
