@@ -13,7 +13,7 @@
 | Category	| id	     | Int	| false	   | auto increment  | Primary key    | PRIMARY KEY |
 | Category	| name	     | String 	| false    |		     | Category's name|		    |
 | Category 	| icon	     | String  	| true	   | 		     | Category's icon| 	    |
-| Category	| created_at | String 	| false	   | system's date   | Created date   |		    |
+| Category	| created_at | Date	| false	   | system's date   | Created date   |		    |
 
 #### Task
 
@@ -47,6 +47,6 @@ Lưu các giá trị:
 | Subtask	| id	      | Int	| false	   | auto increment  | Primary key    | PRIMARY KEY |
 | Subtask	| task_id     | Int	| false    |		     | Task's name    |		    |
 | Subtask 	| name	      | String  | false	   | 		     | Subtask's name | 	    |
-| Subtask	| is_finished | Boolean | true	   | false  	     | Finished       |		    |
+| Subtask	| finished    | Boolean | true	   | false  	     | Finished       |		    |
 | Subtask	| created_at  | String 	| false	   | system's date   | Created date   |		    |
 
