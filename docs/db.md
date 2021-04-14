@@ -14,6 +14,7 @@
 | Tasks | IsMyday     | Boolean |  false    |         | My Day         |             |
 | Tasks | IsImportant | Boolean |  false    |         | Important      |             |
 | Tasks | IsReminder  | Boolean |  false    |         | Reminder       |             |
+| Tasks | IsRepeat    | Boolean |  false    |         | Repeat         |             |
 | Tasks | CreatedAt   | String  |  false    |         | Created At     |             |
 | Tasks | Description | String  |  false    |         | Add Description|             |
 
