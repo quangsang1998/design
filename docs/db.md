@@ -14,11 +14,11 @@
 | Tasks | cat_id          | Int     |  true     |               | Cat Id         |             |
 | Tasks | name            | String  |  false    |               | Task Name      |             |
 | Tasks | is_finished     | Boolean |  true     |               | Is Finished    |             |
-| Tasks | date            | String  |  false    |               | Finished Date  |             |
+| Tasks | date            | Date    |  true     |               | Deadline Date  |             |
 | Tasks | is_myday        | Boolean |  true     |               | My Day         |             |
 | Tasks | is_important    | Boolean |  true     |               | Important      |             |
 | Tasks | is_reminder     | Boolean |  true     |               | Reminder       |             |
 | Tasks | is_repeat       | Boolean |  true     |               | Repeat         |             |
-| Tasks | created_at      | String  |  false    |               | Created At     |             |
-| Tasks | add_description | String  |  false    |               | Add Description|             |
+| Tasks | created_at      | Date    |  false    |               | Created At     |             |
+| Tasks | note            | String  |  true     |               | Note|          |             |
 
