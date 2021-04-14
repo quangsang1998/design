@@ -1,4 +1,5 @@
 # Thiết kế database
 
-* Sơ đồ
-* Chi tiết thiết kế
+### Database diagram
+
+### Chi tiết thiết kế
