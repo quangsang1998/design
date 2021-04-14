@@ -29,4 +29,5 @@
 ### Tài liệu
 
 * [Đặc tả yêu cầu](docs/srs.md)
+* [Thiết kế database](docs/db.md)
 * [Thiết kế chi tiết](docs/dd.md)
