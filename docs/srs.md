@@ -31,22 +31,56 @@ Tài liệu này sẽ mô tả tổng quan yêu cầu, danh sách các tính nă
 
 ## Chức năng
 
-![Screen Flow](screen-flow.jpg)
+Flow chart các màn hình của ứng dụng.
+
+![Screen Flow](overview.png)
 
 ### Màn hình chính
 
-* Flow chart
-* Mô tả tổng quan
+![Home page](home.png)
+
+Là màn hình hiển thị tổng quan tất cả các nhiệm vụ theo nhóm, và số lượng nhiệm vụ của từng nhóm.
+
+Các nhóm bao gồm:
+
+* Nhóm theo điều kiện:
+  * Ngày của tôi
+  * Quan trọng
+  * Đã lập kế hoạch
+  * ~~Đã giao cho bạn~~
+  * Tác vụ
+
+* Nhóm do người dùng tạo:
+  * Nhà
+  * Công việc
+  * Mua sắm
+  * Trả nợ
+  * ...
 
 ### Màn hình danh sách nhiệm vụ
 
-* Flow chart
-* Mô tả tổng quan
+![List task](list.png)
+
+Là màn hình hiển thị danh sách các nhiệm vụ của một nhóm. Người dùng có thể sắp sếp thứ tự hiển thị các nhiệm vụ theo các điều kiện khác nhau.
+
+Người dùng có thể:
+
+* Tạo thêm nhiệm vụ cho nhóm này.
+* Đánh dấu (hoặc xóa) nhiệm vụ là quan trọng.
+* Đánh dấu (hoặc xóa) nhiệm vụ đã hoàn thành.
+
 
 ### Màn hình chi tiết nhiệm vụ
 
-* Flow chart
-* Mô tả tổng quan
+![Detail task](detail.png)
+
+Là màn hình hiển thị chi tiết nhiệm vụ, người dùng có thể chỉnh sửa nội dung của nhiệm vụ tại màn hình này.
+
+Các nội dung có thể chỉnh sửa bao gồm:
+
+* Thêm (hoặc xóa) các nội dung của nhiệm vụ
+* Thêm các bước con cho nhiệm vụ
+* Xóa nhiệm vụ
 
 ## Giải pháp hệ thống
 
