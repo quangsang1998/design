@@ -6,9 +6,18 @@
 
 ### Chi tiết thiết kế
 
+#### Category
+
+| Name 		| Column     | Type 	| Nullable | Default 	     | Example 	      | Comments    |
+|---------------|------------|----------|----------|-----------------|----------------|-------------|
+| Category	| id	     | Int	| false	   | auto increment  | Primary key    | PRIMARY KEY |
+| Category	| name	     | String 	| false    |		     | Category's name|		    |
+| Category 	| icon	     | String  	| true	   | 		     | Category's icon| 	    |
+| Category	| created_at | Date	| false	   | system's date   | Created date   |		    |
+
 #### Task
 
-| Name  |  Column         |  Type   |  Nullable | Default       |   Example  |  Comments   |            
+| Name  |  Column         |  Type   |  Nullable | Default       |   Example  	 |  Comments   |            
 |-------|-----------------|---------|-----------|---------------|----------------|-------------|
 | Tasks | id              | Int     |  false    | auto increment| Primary Key    | PRIMARY KEY |
 | Tasks | cat_id          | Int     |  true     |               | Cat Id         |             |
@@ -30,3 +39,14 @@ Lưu các giá trị:
 * 1: lặp lại mỗi tuần
 * 2: lặp lại mỗi tháng
 * 3: lặp lại mỗi năm
+
+#### SubTask
+
+| Name 		| Column      | Type 	| Nullable | Default 	     | Example 	      | Comments    |
+|---------------|-------------|---------|----------|-----------------|----------------|-------------|
+| Subtask	| id	      | Int	| false	   | auto increment  | Primary key    | PRIMARY KEY |
+| Subtask	| task_id     | Int	| false    |		     | Task's name    |		    |
+| Subtask 	| name	      | String  | false	   | 		     | Subtask's name | 	    |
+| Subtask	| finished    | Boolean | true	   | false  	     | Finished       |		    |
+| Subtask	| created_at  | String 	| false	   | system's date   | Created date   |		    |
+
