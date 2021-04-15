@@ -13,12 +13,12 @@
 | Tasks | id              | Int     |  false    | auto increment| Primary Key    | PRIMARY KEY |
 | Tasks | cat_id          | Int     |  true     |               | Cat Id         |             |
 | Tasks | name            | String  |  false    |               | Task Name      |             |
-| Tasks | is_finished     | Boolean |  true     |               | Is Finished    |             |
+| Tasks | finished        | Boolean |  false    |               | Is Finished    |             |
 | Tasks | date            | Date    |  true     |               | Deadline Date  |             |
-| Tasks | is_myday        | Boolean |  true     |               | My Day         |             |
-| Tasks | is_important    | Boolean |  true     |               | Important      |             |
-| Tasks | is_reminder     | Boolean |  true     |               | Reminder       |             |
-| Tasks | is_repeat       | Boolean |  true     |               | Repeat         |             |
-| Tasks | created_at      | Date    |  false    |               | Created At     |             |
-| Tasks | note            | String  |  true     |               | Note|          |             |
+| Tasks | myDay           | Boolean |  false    |               | My Day         |             |
+| Tasks | important       | Boolean |  false    |               | Important      |             |
+| Tasks | reminder        | Date    |  true     |               | Reminder       |             |
+| Tasks | repeat          | Date    |  true     |               | Repeat         |             |
+| Tasks | createdAt       | Date    |  false    |               | Created At     |             |
+| Tasks | note            | String  |  true     |               | Note           |             |
 
