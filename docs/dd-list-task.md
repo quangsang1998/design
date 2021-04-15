@@ -1,6 +1,3 @@
-# Danh sách nhiệm vụ
-# Ví dụ chi tiết thiết kế
-
 ![list](list.png)
 
 | # | Thành phần | Loại | Chức năng | Dữ liệu |
