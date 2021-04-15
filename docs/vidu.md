@@ -1,8 +1,7 @@
 # Ví dụ chi tiết thiết kế
 
-1. Database schema
+![Home page](home.png)
 
-
-1. Mô tả chi tiết các thành phần View
-1. Sequence diagram
-1. Class diagram
+| # | Thành phần | Loại | Chức năng | Dữ liệu |
+| ---- | ---------- | ------------------- | --------- | --------- |
+| 1 | Ngày của tôi | Nhóm theo thuộc tính | Nhóm các nhiệm vụ được đánh dấu cần quan tâm ngày hôm nay.<br>Icon: abc.png | `count(task#is_my_day = true)` |
