@@ -19,14 +19,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
   override fun init() {
     super.init()
 
-    viewModel.getTaskList()
   }
 
   override fun initUi() {
     super.initUi()
 
     fab.setOnClickListener {
-      viewModel.insertDummyTask()
     }
   }
 

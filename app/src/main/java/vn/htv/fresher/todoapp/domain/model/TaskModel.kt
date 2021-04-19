@@ -13,5 +13,5 @@ data class TaskModel(
   val reminder   : LocalDateTime,
   val repeat     : Int,
   val createdAt  : LocalDateTime,
-  val note       : String,
+  val note       : String
 )
