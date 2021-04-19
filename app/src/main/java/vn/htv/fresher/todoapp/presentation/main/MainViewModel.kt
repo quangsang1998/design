@@ -13,30 +13,4 @@ class MainViewModel(
   private val saveTaskUseCase     : SaveTaskUseCase
 ) : BaseViewModel() {
 
-  fun getTaskList() {
-   disposables += getTaskListUseCase()
-     .subscribeBy(
-       onSuccess = {
-         Timber.i("Task count: ${it.size}")
-       },
-       onError = {
-
-       }
-     )
-  }
-
-  fun insertDummyTask() {
-    val model = TaskModel(
-      name = "Dummy task name"
-    )
-    disposables += saveTaskUseCase(model)
-      .subscribeBy(
-        onComplete = {
-          Timber.i("Saved [$model] to Room database successful.")
-        },
-        onError = {
-          Timber.e("Has an error occurred when save [$model] to Room database.")
-        }
-      )
-  }
 }
