@@ -21,11 +21,34 @@ class TaskRepositoryImpl(
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
-
   override fun saveTask(model: TaskModel): Completable {
     val entity = Task.fromModel(model)
 
     return taskDao.insert(entity)
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
+  }
+
+  override fun insertTask(model: TaskModel): Completable {
+    val entity = Task.fromModel(model)
+
+    return taskDao.insert(entity)
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
+  }
+
+  override fun updateTask(model: TaskModel): Completable {
+    val entity = Task.fromModel(model)
+
+    return taskDao.update(entity)
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
+  }
+
+  override fun deleteTask(model: TaskModel): Completable {
+    val entity = Task.fromModel(model)
+
+    return taskDao.delete(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }

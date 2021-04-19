@@ -9,4 +9,10 @@ interface TaskRepository {
   fun getTaskList(): Single<List<TaskModel>>
 
   fun saveTask(model: TaskModel): Completable
+
+  fun insertTask(model: TaskModel): Completable
+
+  fun updateTask(model: TaskModel): Completable
+
+  fun deleteTask(model: TaskModel): Completable
 }
