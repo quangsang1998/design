@@ -15,8 +15,8 @@ class TaskRepositoryImpl(
 ) : TaskRepository {
 
   override fun getTaskList(): Single<List<TaskModel>> {
-    return taskDao.getAll().map { list ->
-      list.map { it.toModel() }
+    return taskDao.getAll()
+      .map { list -> list.map { it.toModel() }
     }
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
