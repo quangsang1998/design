@@ -8,12 +8,12 @@ import vn.htv.fresher.todoapp.data.mapper.toModel
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.domain.repository.TaskRepository
 import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
+import java.util.*
 
 class TaskRepositoryImpl(
   private val taskDao           : TaskDao,
   private val schedulerProvider : SchedulerProvider
 ) : TaskRepository {
-
   override fun deleteTask(model: TaskModel): Completable {
     val entity = Task.fromModel(model)
 
@@ -24,33 +24,26 @@ class TaskRepositoryImpl(
 
   override fun get(id: Int): Single<TaskModel> {
     return taskDao.get(id)
-      .map {
-        it.toModel()
-    }
+      .map { it.toModel() }
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
 
-  override fun getTaskList(catId: Int): Single<List<TaskModel>> {
-    if (catId == 0){
-      return taskDao.getAll()
-        .map { list ->
-          list.map { it.toModel() }
-        }
+  override fun getTaskList(catId: Int?): Single<List<TaskModel>> {
+    catId?.let {
+      return taskDao.getByCatId(it)
+        .map { list -> list.map { it.toModel() } }
         .observeOn(schedulerProvider.io())
         .subscribeOn(schedulerProvider.io())
     }
-    else {
-      return taskDao.getByCatId(catId)
-        .map { list ->
-          list.map { it.toModel() }
-        }
-        .observeOn(schedulerProvider.io())
-        .subscribeOn(schedulerProvider.io())
-    }
+
+    return taskDao.getAll()
+      .map { list -> list.map { it.toModel() } }
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
   }
 
-  override fun insertTask(model: TaskModel): Completable {
+  override fun saveTask(model: TaskModel): Completable {
     val entity = Task.fromModel(model)
 
     return taskDao.insert(entity)

@@ -21,12 +21,11 @@ val appModule = module {
 
   // UseCase
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-  factory { DeleteTaskUseCase(get())  }
+  factory { DeleteTaskUseCase(get()) }
   factory { GetTaskListUseCase(get()) }
-  factory { GetTaskUseCase(get())     }
-  factory { SaveTaskUseCase(get())    }
-  factory { UpdateTaskUseCase(get())  }
+  factory { GetTaskUseCase(get()) }
+  factory { SaveTaskUseCase(get()) }
+  factory { UpdateTaskUseCase(get()) }
 
 
   // ViewModel
