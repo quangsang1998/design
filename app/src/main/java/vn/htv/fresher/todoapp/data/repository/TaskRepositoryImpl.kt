@@ -14,19 +14,40 @@ class TaskRepositoryImpl(
   private val schedulerProvider : SchedulerProvider
 ) : TaskRepository {
 
-  override fun getTaskList(): Single<List<TaskModel>> {
-    return taskDao.getAll().map { list ->
-      list.map { it.toModel() }
+  override fun deleteTask(model: TaskModel): Completable {
+    val entity = Task.fromModel(model)
+
+    return taskDao.delete(entity)
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
+  }
+
+  override fun get(id: Int): Single<TaskModel> {
+    return taskDao.get(id)
+      .map {
+        it.toModel()
     }
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
-  override fun saveTask(model: TaskModel): Completable {
-    val entity = Task.fromModel(model)
 
-    return taskDao.insert(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
+  override fun getTaskList(catId: Int): Single<List<TaskModel>> {
+    if (catId == 0){
+      return taskDao.getAll()
+        .map { list ->
+          list.map { it.toModel() }
+        }
+        .observeOn(schedulerProvider.io())
+        .subscribeOn(schedulerProvider.io())
+    }
+    else {
+      return taskDao.getByCatId(catId)
+        .map { list ->
+          list.map { it.toModel() }
+        }
+        .observeOn(schedulerProvider.io())
+        .subscribeOn(schedulerProvider.io())
+    }
   }
 
   override fun insertTask(model: TaskModel): Completable {
@@ -41,14 +62,6 @@ class TaskRepositoryImpl(
     val entity = Task.fromModel(model)
 
     return taskDao.update(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-
-  override fun deleteTask(model: TaskModel): Completable {
-    val entity = Task.fromModel(model)
-
-    return taskDao.delete(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }

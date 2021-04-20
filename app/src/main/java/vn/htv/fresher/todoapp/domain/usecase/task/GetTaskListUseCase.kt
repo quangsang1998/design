@@ -7,8 +7,7 @@ import vn.htv.fresher.todoapp.domain.repository.TaskRepository
 class GetTaskListUseCase(
   private val taskRepository: TaskRepository
 ) {
-
-  operator fun invoke(): Single<List<TaskModel>> {
-    return taskRepository.getTaskList()
+  operator fun invoke(catId: Int): Single<List<TaskModel>> {
+    return taskRepository.getTaskList(catId)
   }
 }

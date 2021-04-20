@@ -8,6 +8,6 @@ class SaveTaskUseCase(
   private val taskRepository: TaskRepository
 ) {
   operator fun invoke(model: TaskModel): Completable {
-    return taskRepository.saveTask(model)
+    return taskRepository.insertTask(model)
   }
 }
