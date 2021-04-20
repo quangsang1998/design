@@ -1,13 +1,13 @@
 package vn.htv.fresher.todoapp.domain.usecase.task
 
-import io.reactivex.Completable
+import io.reactivex.Single
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.domain.repository.TaskRepository
 
-class UpdateTaskUseCase(
+class GetTaskUseCase(
   private val taskRepository: TaskRepository
 ) {
-  operator fun invoke(model: TaskModel): Completable {
-    return taskRepository.updateTask(model)
+  operator fun invoke(id: Int): Single<TaskModel> {
+    return taskRepository.get(id)
   }
 }
