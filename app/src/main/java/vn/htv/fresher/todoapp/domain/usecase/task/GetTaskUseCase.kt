@@ -4,10 +4,10 @@ import io.reactivex.Single
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.domain.repository.TaskRepository
 
-class GetTaskListUseCase(
+class GetTaskUseCase(
   private val taskRepository: TaskRepository
 ) {
-  operator fun invoke(catId: Int? = null): Single<List<TaskModel>> {
-    return taskRepository.getTaskList(catId)
+  operator fun invoke(id: Int): Single<TaskModel> {
+    return taskRepository.get(id)
   }
 }

@@ -4,8 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import vn.htv.fresher.todoapp.data.repository.TaskRepositoryImpl
 import vn.htv.fresher.todoapp.domain.repository.TaskRepository
-import vn.htv.fresher.todoapp.domain.usecase.task.GetTaskListUseCase
-import vn.htv.fresher.todoapp.domain.usecase.task.SaveTaskUseCase
+import vn.htv.fresher.todoapp.domain.usecase.task.*
 import vn.htv.fresher.todoapp.presentation.main.MainViewModel
 import vn.htv.fresher.todoapp.util.rx.AppSchedulerProvider
 import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
@@ -22,14 +21,16 @@ val appModule = module {
 
   // UseCase
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
+  factory { DeleteTaskUseCase(get()) }
   factory { GetTaskListUseCase(get()) }
+  factory { GetTaskUseCase(get()) }
   factory { SaveTaskUseCase(get()) }
+  factory { UpdateTaskUseCase(get()) }
 
 
   // ViewModel
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  viewModel { MainViewModel(get(), get()) }
+  viewModel { MainViewModel() }
 
 }
