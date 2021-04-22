@@ -6,10 +6,9 @@ import vn.htv.fresher.todoapp.domain.model.SubTaskModel
 import vn.htv.fresher.todoapp.domain.repository.SubTaskRepository
 
 class DeleteSubTaskUseCase(
-  private val subTaskRepository  : SubTaskRepository,
-  private val model              : SubTaskModel
+  private val subTaskRepository: SubTaskRepository
 ) {
-    operator fun invoke(): Completable {
-      return subTaskRepository.deleteSubTask(model)
+    operator fun invoke(id: Int): Completable {
+      return subTaskRepository.deleteSubTask(id)
     }
 }

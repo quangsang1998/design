@@ -8,7 +8,7 @@ class UpdateCategoryUseCase(
   private val categoryRepository  : CategoryRepository,
   private val model               : CategoryModel
 ) {
-    operator fun invoke(): Completable {
+    operator fun invoke(id: Int): Completable {
       return categoryRepository.updateCategory(model)
     }
 }

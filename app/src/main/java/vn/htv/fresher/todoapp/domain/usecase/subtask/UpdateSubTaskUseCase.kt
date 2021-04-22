@@ -8,7 +8,7 @@ class UpdateSubTaskUseCase(
   private val subTaskRepository  : SubTaskRepository,
   private val model              : SubTaskModel
 ) {
-    operator fun invoke(): Completable {
+    operator fun invoke(id: Int): Completable {
       return subTaskRepository.updateSubTask(model)
     }
 }

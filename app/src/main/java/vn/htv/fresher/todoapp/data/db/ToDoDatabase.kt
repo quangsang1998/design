@@ -28,5 +28,4 @@ abstract class ToDoDatabase: RoomDatabase() {
   abstract fun subTaskDao(): SubTaskDao
 
   abstract fun taskDao(): TaskDao
-
 }

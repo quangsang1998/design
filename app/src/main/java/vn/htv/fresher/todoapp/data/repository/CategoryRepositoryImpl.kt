@@ -13,11 +13,11 @@ import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
 
 class CategoryRepositoryImpl(
   private val categoryDao        : CategoryDao,
+  private val model              : CategoryModel,
   private val schedulerProvider  : SchedulerProvider
 ) : CategoryRepository {
-  override fun deleteCategory(model: CategoryModel): Completable {
+  override fun deleteCategory(id: Int): Completable {
     val entity = Category.fromModel(model)
-
     return categoryDao.delete(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
