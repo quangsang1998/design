@@ -4,10 +4,10 @@ import io.reactivex.Completable
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 
-class SaveCategoryUseCase (
-  private val categoryRepository: CategoryRepository
+class SaveCategoryUseCase(
+  private val categoryRepository  : CategoryRepository
 ) {
-    operator fun invoke(model: CategoryModel): Completable {
+    operator fun invoke(model  : CategoryModel)  : Completable {
       return categoryRepository.saveCategory(model)
     }
 }

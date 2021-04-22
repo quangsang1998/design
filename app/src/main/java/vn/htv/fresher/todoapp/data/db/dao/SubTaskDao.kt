@@ -10,15 +10,20 @@ import vn.htv.fresher.todoapp.data.db.entity.SubTask
 import vn.htv.fresher.todoapp.data.db.entity.Task
 
 interface SubTaskDao {
-  @Query("SELECT * FROM ${SubTask.NAME}")
-  fun getAll(): Single<List<SubTask>>
+
+  @Delete
+  fun delete(entity  : SubTask)  : Completable
 
   @Insert
-  fun insert(entity: SubTask): Completable
-  @Delete
-  fun delete(entity: SubTask): Completable
+  fun insert(entity  : SubTask)  : Completable
+
+  @Query("SELECT * FROM ${SubTask.NAME}")
+  fun getAll()  : Single<List<SubTask>>
+
+  @Query("SELECT *FROM ${SubTask.NAME} WHERE ${SubTask.COLUMN_ID} = :id")
+  fun getByTaskId(id  : Int)  : Single<List<SubTask>>
+
   @Update
-  fun update(entity: SubTask): Completable
-  @Query("SELECT *FROM ${SubTask.NAME} WHERE id LIKE:id")
-  fun getByTaskId(id: Int): Single<List<SubTask>>
+  fun update(entity  : SubTask)  : Completable
+
 }

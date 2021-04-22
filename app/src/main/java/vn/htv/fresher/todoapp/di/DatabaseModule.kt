@@ -18,5 +18,7 @@ val dbModule = module {
 
   single {
     get<ToDoDatabase>().taskDao()
+    get<ToDoDatabase>().subTaskDao()
+    get<ToDoDatabase>().categoryDao()
   }
 }

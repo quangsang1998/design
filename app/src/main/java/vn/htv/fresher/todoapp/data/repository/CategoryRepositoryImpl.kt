@@ -12,39 +12,36 @@ import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
 
 class CategoryRepositoryImpl(
-  private val categoryDao           : CategoryDao,
-  private val schedulerProvider : SchedulerProvider
+  private val categoryDao        : CategoryDao,
+  private val schedulerProvider  : SchedulerProvider
 ) : CategoryRepository {
-  override fun getCategoryList(): Single<List<CategoryModel>> {
+  override fun deleteCategory(model  : CategoryModel)  : Completable {
+    val entity = Category.fromModel(model)
+
+    return categoryDao.delete(entity)
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
+  }
+
+  override fun getCategoryList()  : Single<List<CategoryModel>> {
     return categoryDao.getAll()
       .map { list -> list.map { it.toModel() } }
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
 
-  override fun saveCategory(model: CategoryModel): Completable {
+  override fun saveCategory(model  : CategoryModel)  : Completable {
     val entity = Category.fromModel(model)
 
     return categoryDao.insert(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
-  override fun insertCategory(model: CategoryModel): Completable {
+
+  override fun updateCategory(model  : CategoryModel)  : Completable {
     val entity = Category.fromModel(model)
 
-    return categoryDao.insert(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-  override fun updateCategory(model: CategoryModel): Completable {
-    val entity = Category.fromModel(model)
     return categoryDao.update(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-  override fun deleteCategory(model: CategoryModel): Completable {
-    val entity = Category.fromModel(model)
-    return categoryDao.delete(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
