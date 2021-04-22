@@ -4,7 +4,7 @@ import org.threeten.bp.LocalDateTime
 
 data class SubTaskModel(
   val id         : Int,
-  val taskId     : Int,
+  val taskId     : Int? = null,
   val name       : String,
   val finished   : Boolean? = null,
   val createdAt  : LocalDateTime
