@@ -8,12 +8,12 @@ class TypeConverter {
     private val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
 
     @TypeConverter
-    fun fromTimestamp(value: String): LocalDateTime {
+    fun fromTimestamp(value  : String)  : LocalDateTime {
         return LocalDateTime.parse(value, formatter)
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: LocalDateTime): String {
+    fun dateToTimestamp(date  : LocalDateTime)  : String {
         return date.format(formatter)
     }
 }
