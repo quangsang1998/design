@@ -1,14 +1,11 @@
 package vn.htv.fresher.todoapp.data.db.dao
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import io.reactivex.Completable
 import io.reactivex.Single
 import vn.htv.fresher.todoapp.data.db.entity.Category
-import vn.htv.fresher.todoapp.data.db.entity.Task
 
+@Dao
 interface CategoryDao {
 
   @Delete
