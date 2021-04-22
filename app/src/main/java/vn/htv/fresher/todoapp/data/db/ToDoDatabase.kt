@@ -21,12 +21,12 @@ import vn.htv.fresher.todoapp.data.db.entity.Task
 )
 
 @TypeConverters(TypeConverter::class)
-abstract class ToDoDatabase  : RoomDatabase() {
+abstract class ToDoDatabase: RoomDatabase() {
 
-  abstract fun categoryDao()  : CategoryDao
+  abstract fun categoryDao(): CategoryDao
 
-  abstract fun subTaskDao()  : SubTaskDao
+  abstract fun subTaskDao(): SubTaskDao
 
-  abstract fun taskDao()  : TaskDao
+  abstract fun taskDao(): TaskDao
 
 }

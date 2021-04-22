@@ -7,9 +7,9 @@ import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 
 class DeleteCategoryUseCase(
   private val categoryRepository  : CategoryRepository,
-  private val model  : CategoryModel
+  private val model               : CategoryModel
 ) {
-    operator fun invoke()  : Completable {
+    operator fun invoke(): Completable {
       return categoryRepository.deleteCategory(model)
     }
 }

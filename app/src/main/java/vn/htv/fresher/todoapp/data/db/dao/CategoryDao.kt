@@ -12,15 +12,15 @@ import vn.htv.fresher.todoapp.data.db.entity.Task
 interface CategoryDao {
 
   @Delete
-  fun delete(entity  : Category)  : Completable
+  fun delete(entity: Category): Completable
 
   @Insert
-  fun insert(entity  : Category)  : Completable
+  fun insert(entity: Category): Completable
 
   @Query("SELECT * FROM ${Category.NAME}")
-  fun getAll()  : Single<List<Category>>
+  fun getAll(): Single<List<Category>>
 
   @Update
-  fun update(entity  : Category )  : Completable
+  fun update(entity: Category ): Completable
 
 }

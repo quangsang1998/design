@@ -15,7 +15,7 @@ class CategoryRepositoryImpl(
   private val categoryDao        : CategoryDao,
   private val schedulerProvider  : SchedulerProvider
 ) : CategoryRepository {
-  override fun deleteCategory(model  : CategoryModel)  : Completable {
+  override fun deleteCategory(model: CategoryModel): Completable {
     val entity = Category.fromModel(model)
 
     return categoryDao.delete(entity)
@@ -23,14 +23,14 @@ class CategoryRepositoryImpl(
       .subscribeOn(schedulerProvider.io())
   }
 
-  override fun getCategoryList()  : Single<List<CategoryModel>> {
+  override fun getCategoryList(): Single<List<CategoryModel>> {
     return categoryDao.getAll()
       .map { list -> list.map { it.toModel() } }
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
 
-  override fun saveCategory(model  : CategoryModel)  : Completable {
+  override fun saveCategory(model: CategoryModel): Completable {
     val entity = Category.fromModel(model)
 
     return categoryDao.insert(entity)
@@ -38,7 +38,7 @@ class CategoryRepositoryImpl(
       .subscribeOn(schedulerProvider.io())
   }
 
-  override fun updateCategory(model  : CategoryModel)  : Completable {
+  override fun updateCategory(model: CategoryModel): Completable {
     val entity = Category.fromModel(model)
 
     return categoryDao.update(entity)

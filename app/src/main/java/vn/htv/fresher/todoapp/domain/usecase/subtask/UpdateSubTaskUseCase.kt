@@ -6,9 +6,9 @@ import vn.htv.fresher.todoapp.domain.repository.SubTaskRepository
 
 class UpdateSubTaskUseCase(
   private val subTaskRepository  : SubTaskRepository,
-  private val model  : SubTaskModel
+  private val model              : SubTaskModel
 ) {
-    operator fun invoke()  : Completable {
+    operator fun invoke(): Completable {
       return subTaskRepository.updateSubTask(model)
     }
 }
