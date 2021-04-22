@@ -9,48 +9,45 @@ import vn.htv.fresher.todoapp.domain.model.SubTaskModel
 import vn.htv.fresher.todoapp.domain.repository.SubTaskRepository
 import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
 
-class SubTaskRepositoryImpl(
-  private val subTaskDao        : SubTaskDao,
-  private val schedulerProvider : SchedulerProvider
+class SubTaskRepositoryImpl (
+  private val subTaskDao         : SubTaskDao,
+  private val schedulerProvider  : SchedulerProvider
 ) : SubTaskRepository {
-  override fun getSubTaskList(): Single<List<SubTaskModel>> {
-    return subTaskDao.getAll().map { list ->
-      list.map { it.toModel() }
-    }
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-
-  override fun saveSubTask(model: SubTaskModel): Completable {
+  override fun deleteSubTask(model  : SubTaskModel)  : Completable {
     val entity = SubTask.fromModel(model)
 
-    return subTaskDao.insert(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-  override fun insertSubTask(model: SubTaskModel): Completable {
-    val entity = SubTask.fromModel(model)
-
-    return subTaskDao.insert(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-  override fun updateSubTask(model: SubTaskModel): Completable {
-    val entity = SubTask.fromModel(model)
-    return subTaskDao.update(entity)
-      .observeOn(schedulerProvider.io())
-      .subscribeOn(schedulerProvider.io())
-  }
-  override fun deleteSubTask(model: SubTaskModel): Completable {
-    val entity = SubTask.fromModel(model)
     return subTaskDao.delete(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
-  override fun getByTaskId(id: Int): Single<List<SubTaskModel>> {
-    return subTaskDao.getAll().map { list ->
-      list.map {it.toModel() }
+
+  override fun getByTaskId(taskId  : Int?)  : Single<List<SubTaskModel>> {
+    if(taskId == null) {
+      return subTaskDao.getAll()
+        .map { list -> list.map { it.toModel() } }
+        .observeOn(schedulerProvider.io())
+        .subscribeOn(schedulerProvider.io())
     }
+    else {
+      return subTaskDao.getByTaskId(taskId)
+        .map { list -> list.map { it.toModel() } }
+        .observeOn(schedulerProvider.io())
+        .subscribeOn(schedulerProvider.io())
+    }
+  }
+
+  override fun saveSubTask(model  : SubTaskModel)  : Completable {
+    val entity = SubTask.fromModel(model)
+
+    return subTaskDao.insert(entity)
+      .observeOn(schedulerProvider.io())
+      .subscribeOn(schedulerProvider.io())
+  }
+
+  override fun updateSubTask(model  : SubTaskModel)  : Completable {
+    val entity = SubTask.fromModel(model)
+
+    return subTaskDao.update(entity)
       .observeOn(schedulerProvider.io())
       .subscribeOn(schedulerProvider.io())
   }
