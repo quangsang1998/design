@@ -12,10 +12,9 @@ import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
 
 class SubTaskRepositoryImpl(
   private val schedulerProvider  : SchedulerProvider,
-  private val model              : SubTaskModel,
   private val subTaskDao         : SubTaskDao
 ) : SubTaskRepository {
-  override fun deleteSubTask(id: Int): Completable {
+  override fun deleteSubTask(model: SubTaskModel): Completable {
     val entity = SubTask.fromModel(model)
 
     return subTaskDao.delete(entity)

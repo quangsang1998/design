@@ -5,7 +5,7 @@ import io.reactivex.Single
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
 
 interface CategoryRepository {
-  fun deleteCategory(id: Int): Completable
+  fun deleteCategory(model: CategoryModel): Completable
 
   fun getCategoryList(): Single<List<CategoryModel>>
 

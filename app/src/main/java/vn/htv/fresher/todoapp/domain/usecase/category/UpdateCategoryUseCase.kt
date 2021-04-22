@@ -5,10 +5,9 @@ import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 
 class UpdateCategoryUseCase(
-  private val categoryRepository  : CategoryRepository,
-  private val model               : CategoryModel
+  private val categoryRepository: CategoryRepository,
 ) {
-    operator fun invoke(id: Int): Completable {
+    operator fun invoke(model: CategoryModel): Completable {
       return categoryRepository.updateCategory(model)
     }
 }

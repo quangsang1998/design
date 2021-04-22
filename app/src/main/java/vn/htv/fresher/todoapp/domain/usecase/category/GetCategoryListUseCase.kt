@@ -6,7 +6,7 @@ import vn.htv.fresher.todoapp.domain.model.SubTaskModel
 import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 
 class GetCategoryListUseCase(
-  private val categoryRepository  : CategoryRepository
+  private val categoryRepository: CategoryRepository
 ) {
     operator fun invoke(): Single<List<CategoryModel>> {
       return categoryRepository.getCategoryList()

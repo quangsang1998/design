@@ -20,10 +20,9 @@ val appModule = module {
   // Repository
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  single<TaskRepository> { TaskRepositoryImpl(get(), get()) }
-  single<SubTaskRepository> { SubTaskRepositoryImpl(get(), get()) }
   single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
-
+  single<SubTaskRepository> { SubTaskRepositoryImpl(get(), get()) }
+  single<TaskRepository> { TaskRepositoryImpl(get(), get()) }
   // UseCase
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   factory { DeleteTaskUseCase(get()) }
@@ -36,6 +35,6 @@ val appModule = module {
   // ViewModel
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  viewModel { MainViewModel() }
+  viewModel { MainViewModel(get(), get()) }
 
 }
