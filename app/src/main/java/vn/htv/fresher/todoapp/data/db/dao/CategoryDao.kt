@@ -21,6 +21,6 @@ interface CategoryDao {
   fun getAll(): Single<List<Category>>
 
   @Update
-  fun update(entity: Category ): Completable
+  fun update(entity: Category): Completable
 
 }
