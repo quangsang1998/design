@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:bind="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <variable
+      name="model"
+      type="vn.htv.fresher.todoapp.presentation.main.MainItemModel" />
+
+    <import type="android.view.View" />
+  </data>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+      android:id="@+id/categoryImage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/ic_default"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      bind:imageResource="@{model.iconId}" />
+
+    <TextView
+      android:id="@+id/categoryTextView"
+      android:layout_width="@dimen/category_name"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/large_margin"
+      android:ellipsize="end"
+      android:textStyle="bold"
+      android:maxLines="1"
+      android:text="@{model.name}"
+      android:textAppearance="@android:style/TextAppearance.Small"
+      android:textColor="@color/black"
+      app:layout_constraintBottom_toBottomOf="@id/categoryImage"
+      app:layout_constraintLeft_toRightOf="@+id/categoryImage"
+      app:layout_constraintTop_toTopOf="@id/categoryImage"
+      tools:text="My Day" />
+
+    <TextView
+      android:id="@+id/numberOfTasksTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@{String.valueOf(model.taskNumber)}"
+      android:textAppearance="@android:style/TextAppearance.Small"
+      android:textColor="@color/dark_gray"
+      android:visibility="@{model.taskNumber==0?View.GONE:View.VISIBLE}"
+      app:layout_constraintBottom_toBottomOf="@+id/categoryTextView"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/categoryTextView"
+      tools:text="10" />
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
