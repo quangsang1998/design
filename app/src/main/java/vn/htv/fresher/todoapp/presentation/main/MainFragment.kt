@@ -1,8 +1,11 @@
 package vn.htv.fresher.todoapp.presentation.main
 
 import android.content.Intent
+import android.text.InputType
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.input.input
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.LocalDateTime
@@ -51,13 +54,32 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
     viewModel.mainItemList.observe(this, Observer {
       categoryAdapter.setItems(it)
     })
+
+    viewModel.addCategoryCompleted.observe(this@MainFragment,
+      Observer {
+        if (!it) return@Observer
+        // navigate to Category Screen
+      })
   }
 
   inner class EventListeners() {
     fun onNewCategory() {
+      MaterialDialog(safeContext).show {
+        title(R.string.new_category)
+        input(
+          hint = resources.getString(R.string.new_category_hint),
+        ) { _, title ->
+          val model = CategoryModel(
+            name      = title.toString(),
+            createdAt = LocalDateTime.now()
+          )
+          viewModel.addNewCategory(model)
+        }
+        positiveButton(R.string.button_create_category)
+        negativeButton(R.string.button_cancel)
+      }
     }
   }
-
   /**
    * Static definition
    */
