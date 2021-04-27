@@ -1,10 +1,6 @@
 package vn.htv.fresher.todoapp.presentation.main
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
-import android.util.LogPrinter
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,12 +10,10 @@ import io.reactivex.rxkotlin.subscribeBy
 import vn.htv.fresher.todoapp.presentation.common.BaseViewModel
 import timber.log.Timber
 import io.reactivex.rxkotlin.plusAssign
-import org.threeten.bp.LocalDateTime
 import vn.htv.fresher.todoapp.R
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.domain.usecase.category.GetCategoryListUseCase
-import vn.htv.fresher.todoapp.domain.usecase.category.SaveCategoryUseCase
 import vn.htv.fresher.todoapp.domain.usecase.task.*
 
 enum class TaskGroup {
@@ -61,17 +55,17 @@ sealed class MainItem(val type: MainItemType) {
 }
 
 data class MainItemModel(
-  val iconId      : Int? = null,
+  val iconId      : Int = R.drawable.ic_category_default,
   val name        : String,
   val taskNumber  : Int = 0
-)
+) {
+  val hasTask: Boolean get() = taskNumber != 0
+}
 
 class MainViewModel(
   private val context                 : Context,
   private val getTaskListUseCase      : GetTaskListUseCase,
-  private val getCategoryListUseCase  : GetCategoryListUseCase,
-  private val saveCategoryUseCase     : SaveCategoryUseCase,
-  private val saveTaskUseCase         : SaveTaskUseCase
+  private val getCategoryListUseCase  : GetCategoryListUseCase
 ) : BaseViewModel() {
 
   val mainItemList: LiveData<List<MainItem>> get() = _mainItemList
@@ -104,7 +98,7 @@ class MainViewModel(
         onSuccess = {
           _mainItemList.postValue(it)
         },
-        onError   = {
+        onError = {
           Timber.i("Cannot post value")
         }
       )
@@ -113,33 +107,24 @@ class MainViewModel(
   private fun generateTaskGroup(tasks: List<TaskModel>): List<MainItem> {
     val list = mutableListOf<MainItem>()
 
-    val myDayItem = MainItemModel(
-      iconId      = TaskGroup.MY_DAY.groupIcon,
-      name        = context.getString(TaskGroup.MY_DAY.groupName),
-      taskNumber  = tasks.filter { it.myDay }.size
-    )
-    list.add(MainItem.Item(myDayItem))
+    val items = TaskGroup.values().map { group ->
+      val taskNumber = when (group) {
+        TaskGroup.MY_DAY    -> tasks.filter { it.myDay }.size
+        TaskGroup.IMPORTANT -> tasks.filter { it.important }.size
+        TaskGroup.DEADLINE  -> tasks.filter { it.deadline != null }.size
+        TaskGroup.ACTION    -> tasks.filter { it.catId == null }.size
+      }
 
-    val importantItem = MainItemModel(
-      iconId      = TaskGroup.IMPORTANT.groupIcon,
-      name        = context.getString(TaskGroup.IMPORTANT.groupName),
-      taskNumber  = tasks.filter { it.important }.size
-    )
-    list.add(MainItem.Item(importantItem))
+      val mainItemModel = MainItemModel(
+        iconId      = group.groupIcon,
+        name        = context.getString(group.groupName),
+        taskNumber  = taskNumber
+      )
 
-    val deadlineItem =MainItemModel(
-      iconId      = TaskGroup.DEADLINE.groupIcon,
-      name        = context.getString(TaskGroup.DEADLINE.groupName),
-      taskNumber  = tasks.filter { it.deadline != null }.size
-    )
-    list.add(MainItem.Item(deadlineItem))
+      MainItem.Item(mainItemModel)
+    }
 
-    val actionItem =MainItemModel(
-      iconId      = TaskGroup.ACTION.groupIcon,
-      name        = context.getString(TaskGroup.ACTION.groupName),
-      taskNumber  = tasks.filter { it.catId == null }.size
-    )
-    list.add(MainItem.Item(actionItem))
+    list.addAll(items)
 
     return list
   }

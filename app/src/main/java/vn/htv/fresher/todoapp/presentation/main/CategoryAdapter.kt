@@ -1,13 +1,10 @@
 package vn.htv.fresher.todoapp.presentation.main
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import vn.htv.fresher.todoapp.databinding.ItemCategoryBinding
 import vn.htv.fresher.todoapp.databinding.ItemSeparatorBinding
-import vn.htv.fresher.todoapp.domain.model.CategoryModel
-import vn.htv.fresher.todoapp.domain.usecase.task.GetTaskListUseCase
 
 class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private val mainItemList = mutableListOf<MainItem>()
@@ -16,7 +13,8 @@ class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     return mainItemList[position].type.value
   }
 
-  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+  override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)
+  : RecyclerView.ViewHolder {
     return when(MainItemType.from(viewType)) {
       MainItemType.MAIN_ITEM -> CategoryViewHolder(ItemCategoryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
       MainItemType.SEPARATOR -> SeparatorViewHolder(ItemSeparatorBinding.inflate(LayoutInflater.from(parent.context), parent, false))
@@ -25,9 +23,7 @@ class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
   override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
     when(val item = mainItemList[position]) {
-      is MainItem.Item -> {
-        (holder as? CategoryViewHolder)?.bind(item.model)
-      }
+      is MainItem.Item -> (holder as? CategoryViewHolder)?.bind(item.model)
     }
   }
 
@@ -41,7 +37,8 @@ class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     notifyDataSetChanged()
   }
 
-  inner class CategoryViewHolder(itemView: ItemCategoryBinding) : RecyclerView.ViewHolder(itemView.root) {
+  inner class CategoryViewHolder(itemView: ItemCategoryBinding)
+    : RecyclerView.ViewHolder(itemView.root) {
     var binding: ItemCategoryBinding = itemView
 
     fun bind(model: MainItemModel) {
@@ -49,5 +46,6 @@ class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
   }
 
-  inner class SeparatorViewHolder(itemView: ItemSeparatorBinding) : RecyclerView.ViewHolder(itemView.root)
+  inner class SeparatorViewHolder(itemView: ItemSeparatorBinding)
+    : RecyclerView.ViewHolder(itemView.root)
 }
