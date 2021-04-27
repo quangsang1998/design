@@ -10,10 +10,12 @@ import io.reactivex.rxkotlin.subscribeBy
 import vn.htv.fresher.todoapp.presentation.common.BaseViewModel
 import timber.log.Timber
 import io.reactivex.rxkotlin.plusAssign
+import org.threeten.bp.LocalDateTime
 import vn.htv.fresher.todoapp.R
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.domain.usecase.category.GetCategoryListUseCase
+import vn.htv.fresher.todoapp.domain.usecase.category.SaveCategoryUseCase
 import vn.htv.fresher.todoapp.domain.usecase.task.*
 
 enum class TaskGroup {
@@ -65,11 +67,15 @@ data class MainItemModel(
 class MainViewModel(
   private val context                 : Context,
   private val getTaskListUseCase      : GetTaskListUseCase,
-  private val getCategoryListUseCase  : GetCategoryListUseCase
+  private val getCategoryListUseCase  : GetCategoryListUseCase,
+  private val saveCategoryUseCase     : SaveCategoryUseCase
 ) : BaseViewModel() {
 
   val mainItemList: LiveData<List<MainItem>> get() = _mainItemList
   private val _mainItemList = MutableLiveData<List<MainItem>>()
+
+  val addCategoryCompleted: LiveData<Boolean> get() = _addCategoryCompleted
+  private val _addCategoryCompleted = MutableLiveData<Boolean>()
 
   fun loadData() {
     val getTaskObservable     = getTaskListUseCase()
@@ -127,5 +133,18 @@ class MainViewModel(
     list.addAll(items)
 
     return list
+  }
+
+  fun addNewCategory(model: CategoryModel) {
+    disposables += saveCategoryUseCase(model)
+      .subscribeBy(
+        onComplete = {
+          _addCategoryCompleted.postValue(true)
+          Timber.i("Saved category [$model] to Room database successful.")
+        },
+        onError = {
+          Timber.e("Has an error occurred when save [$model] to Room database.")
+        }
+      )
   }
 }
