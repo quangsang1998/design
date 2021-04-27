@@ -14,7 +14,11 @@ import vn.htv.fresher.todoapp.domain.usecase.category.DeleteCategoryUseCase
 import vn.htv.fresher.todoapp.domain.usecase.category.GetCategoryListUseCase
 import vn.htv.fresher.todoapp.domain.usecase.category.SaveCategoryUseCase
 import vn.htv.fresher.todoapp.domain.usecase.category.UpdateCategoryUseCase
+
+import vn.htv.fresher.todoapp.domain.usecase.subtask.*
+
 import vn.htv.fresher.todoapp.domain.usecase.task.*
+import vn.htv.fresher.todoapp.presentation.category.CategoryViewModel
 import vn.htv.fresher.todoapp.presentation.main.MainViewModel
 import vn.htv.fresher.todoapp.util.rx.AppSchedulerProvider
 import vn.htv.fresher.todoapp.util.rx.SchedulerProvider
@@ -43,9 +47,17 @@ val appModule = module {
   factory { SaveTaskUseCase(get()) }
   factory { UpdateTaskUseCase(get()) }
 
+  factory { DeleteSubTaskUseCase(get()) }
+  factory { GetSubTaskUseCase(get())}
+  factory { GetSubTaskListUseCase(get()) }
+  factory { SaveSubTaskUseCase(get()) }
+  factory { UpdateSubTaskUseCase(get()) }
+
 
   // ViewModel
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   viewModel { MainViewModel(get(), get(), get(), get()) }
+  viewModel { CategoryViewModel(get(), get(), get()) }
+
 }
