@@ -4,14 +4,14 @@ import org.threeten.bp.LocalDateTime
 
 data class TaskModel(
   val id         : Int? = null,
-  val catId      : Int,
+  val catId      : Int? = null,
   val name       : String,
-  val finished   : Boolean,
-  val deadline   : LocalDateTime,
-  val myDay      : Boolean,
-  val important  : Boolean,
-  val reminder   : LocalDateTime,
-  val repeat     : Int,
+  val finished   : Boolean = false,
+  val deadline   : LocalDateTime? = null,
+  val myDay      : Boolean = false,
+  val important  : Boolean = false,
+  val reminder   : LocalDateTime? = null,
+  val repeat     : Int? = null,
   val createdAt  : LocalDateTime,
-  val note       : String
+  val note       : String? = null
 )

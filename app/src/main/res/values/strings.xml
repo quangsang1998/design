@@ -1,3 +1,8 @@
 <resources>
   <string name="app_name">To Do</string>
+  <string name="new_category">Danh sách mới</string>
+  <string name="task_group_my_day">Ngày của tôi</string>
+  <string name="task_group_important">Quan trọng</string>
+  <string name="task_group_deadline">Đã lập kế hoạch</string>
+  <string name="task_group_action">Tác vụ</string>
 </resources>

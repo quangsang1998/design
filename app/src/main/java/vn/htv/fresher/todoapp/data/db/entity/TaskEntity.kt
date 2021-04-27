@@ -13,16 +13,16 @@ import vn.htv.fresher.todoapp.domain.model.TaskModel
 data class Task(
   @PrimaryKey(autoGenerate = true)
   @ColumnInfo(name = COLUMN_ID)         val id        : Int? = null,
-  @ColumnInfo(name = COLUMN_CAT_ID)     val catId     : Int,
+  @ColumnInfo(name = COLUMN_CAT_ID)     val catId     : Int? = null,
   @ColumnInfo(name = COLUMN_NAME)       val name      : String,
   @ColumnInfo(name = COLUMN_FINISHED)   val finished  : Boolean,
-  @ColumnInfo(name = COLUMN_DEADLINE)   val deadline  : LocalDateTime,
+  @ColumnInfo(name = COLUMN_DEADLINE)   val deadline  : LocalDateTime? = null,
   @ColumnInfo(name = COLUMN_MY_DAY)     val myDay     : Boolean,
   @ColumnInfo(name = COLUMN_IMPORTANT)  val important : Boolean,
-  @ColumnInfo(name = COLUMN_REMINDER)   val reminder  : LocalDateTime,
-  @ColumnInfo(name = COLUMN_REPEAT)     val repeat    : Int,
+  @ColumnInfo(name = COLUMN_REMINDER)   val reminder  : LocalDateTime? = null,
+  @ColumnInfo(name = COLUMN_REPEAT)     val repeat    : Int? = null,
   @ColumnInfo(name = COLUMN_CREATED_AT) val createdAt : LocalDateTime,
-  @ColumnInfo(name = COLUMN_NOTE)       val note      : String,
+  @ColumnInfo(name = COLUMN_NOTE)       val note      : String? = null,
 ) {
   companion object {
     const val NAME              = "task"

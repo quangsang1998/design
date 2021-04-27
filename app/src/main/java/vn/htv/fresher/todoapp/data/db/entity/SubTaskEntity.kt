@@ -9,10 +9,10 @@ import vn.htv.fresher.todoapp.domain.model.SubTaskModel
 @Entity (tableName = SubTask.NAME)
 data class SubTask(
   @PrimaryKey(autoGenerate = true)
-  @ColumnInfo(name = COLUMN_ID)          val id         : Int,
-  @ColumnInfo(name = COLUMN_TASK_ID)     val taskId     : Int? = null,
+  @ColumnInfo(name = COLUMN_ID)          val id         : Int? = null,
+  @ColumnInfo(name = COLUMN_TASK_ID)     val taskId     : Int,
   @ColumnInfo(name = COLUMN_NAME)        val name       : String,
-  @ColumnInfo(name = COLUMN_FINISHED)    val finished   : Boolean? = null,
+  @ColumnInfo(name = COLUMN_FINISHED)    val finished   : Boolean,
   @ColumnInfo(name = COLUMN_CREATED_AT)  val createdAt  : LocalDateTime
 ) {
   companion object {
