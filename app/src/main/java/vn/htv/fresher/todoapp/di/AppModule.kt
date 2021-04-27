@@ -54,10 +54,12 @@ val appModule = module {
   factory { UpdateSubTaskUseCase(get()) }
 
 
+
+
   // ViewModel
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   viewModel { MainViewModel(get(), get(), get(), get()) }
-  viewModel { CategoryViewModel(get(), get(), get(), get()) }
+  viewModel { CategoryViewModel(get(), get(), get()) }
 
 }
