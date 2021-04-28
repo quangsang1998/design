@@ -9,7 +9,7 @@ interface CategoryRepository {
 
   fun getCategoryList(): Single<List<CategoryModel>>
 
-  fun saveCategory(model: CategoryModel): Completable
+  fun saveCategory(model: CategoryModel): Single<Long>
 
   fun updateCategory(model: CategoryModel): Completable
 }

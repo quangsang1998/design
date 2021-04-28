@@ -30,7 +30,7 @@ class CategoryRepositoryImpl(
       .subscribeOn(schedulerProvider.io())
   }
 
-  override fun saveCategory(model: CategoryModel): Completable {
+  override fun saveCategory(model: CategoryModel): Single<Long> {
     val entity = Category.fromModel(model)
 
     return categoryDao.insert(entity)

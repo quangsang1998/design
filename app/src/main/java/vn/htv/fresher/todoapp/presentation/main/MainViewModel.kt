@@ -74,8 +74,8 @@ class MainViewModel(
   val mainItemList: LiveData<List<MainItem>> get() = _mainItemList
   private val _mainItemList = MutableLiveData<List<MainItem>>()
 
-  val addCategoryCompleted: LiveData<Boolean> get() = _addCategoryCompleted
-  private val _addCategoryCompleted = MutableLiveData<Boolean>()
+  val addCategoryCompleted: LiveData<Long> get() = _addCategoryCompleted
+  private val _addCategoryCompleted = MutableLiveData<Long>()
 
   fun loadData() {
     val getTaskObservable     = getTaskListUseCase()
@@ -138,8 +138,8 @@ class MainViewModel(
   fun addNewCategory(model: CategoryModel) {
     disposables += saveCategoryUseCase(model)
       .subscribeBy(
-        onComplete = {
-          _addCategoryCompleted.postValue(true)
+        onSuccess = {
+          _addCategoryCompleted.postValue(it)
           Timber.i("Saved category [$model] to Room database successful.")
         },
         onError = {

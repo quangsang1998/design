@@ -57,7 +57,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     viewModel.addCategoryCompleted.observe(this@MainFragment,
       Observer {
-        if (!it) return@Observer
         // navigate to Category Screen
       })
   }
