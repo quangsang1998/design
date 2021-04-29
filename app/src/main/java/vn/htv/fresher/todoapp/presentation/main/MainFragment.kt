@@ -1,5 +1,6 @@
 package vn.htv.fresher.todoapp.presentation.main
 
+import android.app.Activity
 import android.content.Intent
 import android.text.InputType
 import android.widget.Toast
@@ -26,7 +27,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
   private val viewModel by viewModel<MainViewModel>()
 
   private val categoryAdapter by lazy {
-    CategoryAdapter()
+    CategoryAdapter(
+        categoryCallback = {
+          // navigate to Category Screen with Category Id
+        },
+        taskGroupCallback = {
+          // navigate to Category Screen with TaskGroup
+        }
+    )
   }
 
   override fun init() {
@@ -57,7 +65,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
 
     viewModel.addCategoryCompleted.observe(this@MainFragment,
       Observer {
-        if (!it) return@Observer
         // navigate to Category Screen
       })
   }
@@ -67,7 +74,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>() {
       MaterialDialog(safeContext).show {
         title(R.string.new_category)
         input(
-          hint = resources.getString(R.string.new_category_hint),
+          hint = resources.getString(R.string.new_category_hint)
         ) { _, title ->
           val model = CategoryModel(
             name      = title.toString(),

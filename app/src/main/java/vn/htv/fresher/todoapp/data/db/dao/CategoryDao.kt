@@ -12,7 +12,7 @@ interface CategoryDao {
   fun delete(entity: Category): Completable
 
   @Insert
-  fun insert(entity: Category): Completable
+  fun insert(entity: Category): Single<Long>
 
   @Query("SELECT * FROM ${Category.NAME}")
   fun getAll(): Single<List<Category>>

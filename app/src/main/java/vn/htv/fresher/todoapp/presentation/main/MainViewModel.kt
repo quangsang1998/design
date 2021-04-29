@@ -59,7 +59,9 @@ sealed class MainItem(val type: MainItemType) {
 data class MainItemModel(
   val iconId      : Int = R.drawable.ic_category_default,
   val name        : String,
-  val taskNumber  : Int = 0
+  val taskNumber  : Int = 0,
+  val catId       : Int? = null,
+  val taskGroup   : TaskGroup? = null
 ) {
   val hasTask: Boolean get() = taskNumber != 0
 }
@@ -74,8 +76,8 @@ class MainViewModel(
   val mainItemList: LiveData<List<MainItem>> get() = _mainItemList
   private val _mainItemList = MutableLiveData<List<MainItem>>()
 
-  val addCategoryCompleted: LiveData<Boolean> get() = _addCategoryCompleted
-  private val _addCategoryCompleted = MutableLiveData<Boolean>()
+  val addCategoryCompleted: LiveData<Long> get() = _addCategoryCompleted
+  private val _addCategoryCompleted = MutableLiveData<Long>()
 
   fun loadData() {
     val getTaskObservable     = getTaskListUseCase()
@@ -90,8 +92,9 @@ class MainViewModel(
       val categoryItems = categories.map { category ->
         MainItem.Item(
           MainItemModel(
-            name = category.name,
-            taskNumber = tasks.filter { it.catId == category.id }.size
+            name        = category.name,
+            taskNumber  = tasks.filter { it.catId == category.id }.size,
+            catId       = category.id
           )
         )
       }
@@ -124,7 +127,8 @@ class MainViewModel(
       val mainItemModel = MainItemModel(
         iconId      = group.groupIcon,
         name        = context.getString(group.groupName),
-        taskNumber  = taskNumber
+        taskNumber  = taskNumber,
+        taskGroup   = group
       )
 
       MainItem.Item(mainItemModel)
@@ -138,8 +142,9 @@ class MainViewModel(
   fun addNewCategory(model: CategoryModel) {
     disposables += saveCategoryUseCase(model)
       .subscribeBy(
-        onComplete = {
-          _addCategoryCompleted.postValue(true)
+        onSuccess = {
+          _addCategoryCompleted.postValue(it)
+          loadData()
           Timber.i("Saved category [$model] to Room database successful.")
         },
         onError = {
