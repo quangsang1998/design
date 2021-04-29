@@ -1,12 +1,19 @@
 package vn.htv.fresher.todoapp.presentation.main
 
+import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import vn.htv.fresher.todoapp.databinding.ItemCategoryBinding
 import vn.htv.fresher.todoapp.databinding.ItemSeparatorBinding
+import vn.htv.fresher.todoapp.domain.model.CategoryModel
+import vn.htv.fresher.todoapp.generated.callback.OnClickListener
 
-class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class CategoryAdapter(
+    private val categoryCallback  : ((catId: Int) -> Unit),
+    private val taskGroupCallback : ((group: TaskGroup) -> Unit)
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
   private val mainItemList = mutableListOf<MainItem>()
 
   override fun getItemViewType(position: Int): Int {
@@ -43,6 +50,11 @@ class CategoryAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun bind(model: MainItemModel) {
       binding.model = model
+
+      binding.root.setOnClickListener {
+        model.catId?.let      { categoryCallback.invoke(it)   }
+        model.taskGroup?.let  { taskGroupCallback.invoke(it)  }
+      }
     }
   }
 
