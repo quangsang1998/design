@@ -11,15 +11,10 @@
     android:supportsRtl="true"
     android:theme="@style/Theme.ToDo">
     <activity android:name=".presentation.main.MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
     </activity>
     <activity android:name=".presentation.category.CategoryActivity">
       <intent-filter>
-        <action android:name="android.intent.action.CATEGORY" />
+        <action android:name="android.intent.action.MAIN" />
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>

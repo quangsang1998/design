@@ -26,10 +26,10 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
     TaskAdapter(importantCallback = {
       // Xu ly cap nhat database truong important cho task model
       viewModel.updateImportant(it)
+    },
+    finishedCallback = {
+      viewModel.updateComplete(it)
     })
-//    finishedCallback = {
-//      viewModel.updateComplete(it)
-//    })
   }
 
   override fun init() {

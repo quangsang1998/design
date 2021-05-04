@@ -6,7 +6,7 @@ data class TaskModel(
   val id         : Int? = null,
   val catId      : Int? = null,
   val name       : String,
-  val finished   : Boolean = false,
+  var finished   : Boolean = false,
   val deadline   : LocalDateTime? = null,
   val myDay      : Boolean = false,
   val important  : Boolean = false,
