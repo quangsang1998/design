@@ -26,12 +26,11 @@
       android:gravity="center_vertical"
       android:orientation="horizontal">
 
-      <RadioButton
-        android:id="@+id/radioButton"
+      <ImageView
+        android:id="@+id/setComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/large_margin"
-        android:buttonTint ="@color/black"/>
+        tools:src="@drawable/ic_baseline_brightness_1_24" />
 
       <TextView
         android:id="@+id/textView"
@@ -43,7 +42,7 @@
         tools:text="TaskName" />
 
       <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/setImportant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/large_margin"

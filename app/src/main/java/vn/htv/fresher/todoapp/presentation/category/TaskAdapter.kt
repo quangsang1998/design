@@ -43,20 +43,20 @@ class TaskAdapter(
         var binding: TaskItemBinding = itemView
 
         fun bind(model: TaskModel) {
+            val string: String? = "<strike>${binding.root.textView}</strike>"
             binding.model = model
-            binding.root.imageView.setImageResource(
+            binding.root.setImportant.setImageResource(
                 if (model.important) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_outline_24
             )
-            binding.root.imageView.setOnClickListener {
+            binding.root.setImportant.setOnClickListener {
                 importantCallback.invoke(model)
             }
-
-            binding.root.radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
-                if (model.finished) binding.root.radioButton.isChecked else binding.root.radioButton.isEnabled
-            }
-            binding.root.radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
-//       if (model.finished) buttonView.isChecked else buttonView.isEnabled
+            binding.root.setComplete.setImageResource(
+                if (model.finished) R.drawable.ic_baseline_brightness_1_24 else R.drawable.ic_baseline_check_circle_24
+            )
+            binding.root.setComplete.setOnClickListener {
                 finishedCallback.invoke(model)
+                binding.textView.setText(android.text.Html.fromHtml(string))
             }
         }
     }
