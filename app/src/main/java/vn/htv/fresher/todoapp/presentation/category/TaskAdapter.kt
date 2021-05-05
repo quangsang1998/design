@@ -1,5 +1,6 @@
 package vn.htv.fresher.todoapp.presentation.category
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -43,20 +44,23 @@ class TaskAdapter(
         var binding: TaskItemBinding = itemView
 
         fun bind(model: TaskModel) {
-            val string: String? = "<strike>${binding.root.textView}</strike>"
             binding.model = model
             binding.root.setImportant.setImageResource(
                 if (model.important) R.drawable.ic_baseline_star_24 else R.drawable.ic_baseline_star_outline_24
             )
+
             binding.root.setImportant.setOnClickListener {
                 importantCallback.invoke(model)
             }
+
             binding.root.setComplete.setImageResource(
-                if (model.finished) R.drawable.ic_baseline_brightness_1_24 else R.drawable.ic_baseline_check_circle_24
+                if (model.finished) R.drawable.ic_baseline_check_circle_24 else R.drawable.ic_baseline_brightness_1_24
             )
+
+            binding.root.textView.paintFlags = if (model.finished) Paint.STRIKE_THRU_TEXT_FLAG else 0
+
             binding.root.setComplete.setOnClickListener {
                 finishedCallback.invoke(model)
-                binding.textView.setText(android.text.Html.fromHtml(string))
             }
         }
     }

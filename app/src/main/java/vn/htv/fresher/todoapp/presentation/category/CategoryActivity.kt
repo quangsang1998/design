@@ -6,11 +6,14 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import vn.htv.fresher.todoapp.R
+import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.presentation.common.BaseActivity
+import vn.htv.fresher.todoapp.presentation.main.MainViewModel
 
 class CategoryActivity : BaseActivity() {
 
-    private lateinit var viewmodel: CategoryViewModel
+    private lateinit var viewModel: CategoryViewModel
+    private lateinit var viewModel1: MainViewModel
 //  private val actionbar = getSupportActionBar()
 
     override val fragment: Fragment
@@ -21,6 +24,7 @@ class CategoryActivity : BaseActivity() {
 
     override fun initUi() {
         super.initUi()
+        lateinit var model: CategoryModel
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }

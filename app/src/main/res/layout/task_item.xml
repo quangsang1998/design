@@ -30,6 +30,7 @@
         android:id="@+id/setComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         tools:src="@drawable/ic_baseline_brightness_1_24" />
 
       <TextView
@@ -38,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="@{model.name}"
+        android:layout_marginStart="16dp"
         android:textAppearance="@android:style/TextAppearance.Medium"
         tools:text="TaskName" />
 
