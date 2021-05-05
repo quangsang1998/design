@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import org.threeten.bp.LocalDateTime
 import vn.htv.fresher.todoapp.R
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.presentation.common.BaseActivity
@@ -21,6 +22,20 @@ class CategoryActivity : BaseActivity() {
 
     override val layoutId: Int
         get() = R.layout.activity_category
+
+    override fun init() {
+        super.init()
+
+        // Lay catId tu intent o day
+        val i = getIntent()
+        val catId = i.getLongExtra("category", 0)
+        val model = CategoryModel(
+            name =
+            id = catId.toInt(),
+            createdAt = LocalDateTime.now()
+        )
+        supportActionBar?.title = model.name
+    }
 
     override fun initUi() {
         super.initUi()
@@ -48,8 +63,9 @@ class CategoryActivity : BaseActivity() {
 
     companion object {
 
-        fun start(activity: AppCompatActivity) {
+        fun start(activity: AppCompatActivity, catId: Long) {
             val intent = Intent(activity, CategoryActivity::class.java)
+            intent.putExtra("category", catId)
             activity.startActivity(intent)
         }
     }
