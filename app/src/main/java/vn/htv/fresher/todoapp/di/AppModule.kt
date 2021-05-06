@@ -10,10 +10,7 @@ import vn.htv.fresher.todoapp.data.repository.TaskRepositoryImpl
 import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 import vn.htv.fresher.todoapp.domain.repository.SubTaskRepository
 import vn.htv.fresher.todoapp.domain.repository.TaskRepository
-import vn.htv.fresher.todoapp.domain.usecase.category.DeleteCategoryUseCase
-import vn.htv.fresher.todoapp.domain.usecase.category.GetCategoryListUseCase
-import vn.htv.fresher.todoapp.domain.usecase.category.SaveCategoryUseCase
-import vn.htv.fresher.todoapp.domain.usecase.category.UpdateCategoryUseCase
+import vn.htv.fresher.todoapp.domain.usecase.category.*
 
 import vn.htv.fresher.todoapp.domain.usecase.subtask.*
 
@@ -38,6 +35,7 @@ val appModule = module {
 
   factory { DeleteCategoryUseCase(get()) }
   factory { GetCategoryListUseCase(get()) }
+  factory { GetCategoryUseCase(get()) }
   factory { SaveCategoryUseCase(get()) }
   factory { UpdateCategoryUseCase(get()) }
 
@@ -60,6 +58,6 @@ val appModule = module {
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   viewModel { MainViewModel(get(), get(), get(), get()) }
-  viewModel { CategoryViewModel(get(), get(), get()) }
+  viewModel { CategoryViewModel(get(), get(), get(), get(), get()) }
 
 }

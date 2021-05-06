@@ -4,6 +4,7 @@ import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import kotlinx.android.synthetic.main.fragment_category.*
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.LocalDateTime
 import vn.htv.fresher.todoapp.R
@@ -13,11 +14,12 @@ import vn.htv.fresher.todoapp.presentation.common.BaseFragment
 
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
+    private val viewModel by sharedViewModel<CategoryViewModel>()
     // val mesage: String? = getArguments()?.getString("category")
     override val layoutId: Int
         get() = R.layout.fragment_category
 
-    private val viewModel by viewModel<CategoryViewModel>()
+    //private lateinit var viewModel: CategoryViewModel
 
     private val taskAdapter by lazy {
         TaskAdapter(
@@ -36,7 +38,8 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
         //       viewModel.insertTask()
 //    viewModel.insertTask()
 //    viewModel.insertTask()
-//    viewModel.insertCategory()
+//        viewModel.insertCategory()
+        viewModel.loadCategory()
         viewModel.loadData()
         binding.event = EventAddTask()
     }
@@ -61,10 +64,23 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             }
         )
 
+//        viewModel.itemTask.observe(
+//            this,
+//            {
+//                taskAdapter.setItem(it)
+//            }
+//        )
         viewModel.updateImportantCompleted.observe(
             this,
             {
                 viewModel.loadData()
+            }
+        )
+
+        viewModel.itemCategory.observe(
+            this,
+            {
+                safeActivity.supportActionBar?.title = it.name
             }
         )
 
@@ -79,7 +95,9 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             }
         )
     }
-
+    inner class EventMenu() {
+        override fun
+    }
     inner class EventAddTask() {
         fun onNewTask() {
             MaterialDialog(safeContext).show {
@@ -88,6 +106,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
                 ) { _, title ->
                     val model = TaskModel(
                         name = title.toString(),
+                        catId = viewModel.categoryId?.toInt(),
                         createdAt = LocalDateTime.now()
                     )
                     viewModel.addNewTask(model)

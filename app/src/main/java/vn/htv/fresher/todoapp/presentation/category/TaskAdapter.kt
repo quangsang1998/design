@@ -8,6 +8,7 @@ import kotlinx.android.synthetic.main.task_item.*
 import kotlinx.android.synthetic.main.task_item.view.*
 import vn.htv.fresher.todoapp.R
 import vn.htv.fresher.todoapp.databinding.TaskItemBinding
+import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 
 class TaskAdapter(
@@ -39,6 +40,11 @@ class TaskAdapter(
         taskList.addAll(items)
         notifyDataSetChanged()
     }
+//    fun setItem(item: TaskModel) {
+//        taskList.clear()
+//        taskList.add(item)
+//        notifyDataSetChanged()
+//    }
 
     inner class TaskViewHolder(itemView: TaskItemBinding) : RecyclerView.ViewHolder(itemView.root) {
         var binding: TaskItemBinding = itemView

@@ -5,16 +5,15 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import org.threeten.bp.LocalDateTime
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import vn.htv.fresher.todoapp.R
-import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.presentation.common.BaseActivity
-import vn.htv.fresher.todoapp.presentation.main.MainViewModel
 
 class CategoryActivity : BaseActivity() {
 
-    private lateinit var viewModel: CategoryViewModel
-    private lateinit var viewModel1: MainViewModel
+    private val viewModel by viewModel<CategoryViewModel>()
+
 //  private val actionbar = getSupportActionBar()
 
     override val fragment: Fragment
@@ -27,19 +26,12 @@ class CategoryActivity : BaseActivity() {
         super.init()
 
         // Lay catId tu intent o day
-        val i = getIntent()
-        val catId = i.getLongExtra("category", 0)
-        val model = CategoryModel(
-            name =
-            id = catId.toInt(),
-            createdAt = LocalDateTime.now()
-        )
-        supportActionBar?.title = model.name
+        val catId = intent.getLongExtra("category", 0)
+        viewModel.categoryId = catId
     }
 
     override fun initUi() {
         super.initUi()
-        lateinit var model: CategoryModel
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
     }
