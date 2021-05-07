@@ -47,14 +47,14 @@ class CategoryViewModel(
 //  val setImportant: LiveData<Boolean> get() = _setImportant
 //  private _val _setImportant = MutableLiveData<Boolean>(
 
-    val updateImportantCompleted: LiveData<Boolean> get() = _updateImportantCompleted
-    private val _updateImportantCompleted = MutableLiveData<Boolean>()
+//    val updateImportantCompleted: LiveData<Boolean> get() = _updateImportantCompleted
+//    private val _updateImportantCompleted = MutableLiveData<Boolean>()
+//
+//    val updateFinishedCompleted: LiveData<Boolean> get() = _updateFinishedCompleted
+//    private val _updateFinishedCompleted = MutableLiveData<Boolean>()
 
-    val updateFinishedCompleted: LiveData<Boolean> get() = _updateFinishedCompleted
-    private val _updateFinishedCompleted = MutableLiveData<Boolean>()
-
-    val updateNameCompleted: LiveData<String> get() = _updateNameCompleted
-    private val _updateNameCompleted = MutableLiveData<String>()
+    val updateCompleted: LiveData<Boolean> get() = _updateCompleted
+    private val _updateCompleted = MutableLiveData<Boolean>()
 
     val addTaskCompleted: LiveData<Boolean> get() = _addTaskCompleted
     private val _addTaskCompleted = MutableLiveData<Boolean>()
@@ -137,12 +137,12 @@ class CategoryViewModel(
 //          }
 //      )
 
-    fun updateComplete(model: TaskModel) {
-        updateTaskFinished(model.copy(finished = !model.finished))
+    fun updateFinished(model: TaskModel) {
+        updateTask(model.copy(finished = !model.finished))
     }
 
     fun updateImportant(model: TaskModel) {
-        updateTaskImportant(model.copy(important = !model.important))
+        updateTask(model.copy(important = !model.important))
     }
 
 //    fun updateTaskName(model: TaskModel) {
@@ -156,24 +156,24 @@ class CategoryViewModel(
 //                }
 //            )
 //    }
-    fun updateTaskFinished(model: TaskModel) {
+//    fun updateTaskFinished(model: TaskModel) {
+//        disposables += updateTaskUseCase(model)
+//            .subscribeBy(
+//                onComplete = {
+//                    _updateFinishedCompleted.postValue(true)
+//                },
+//                onError = {
+//                    Timber.e("error")
+//                }
+//            )
+//    }
+
+    fun updateTask(model: TaskModel) {
+
         disposables += updateTaskUseCase(model)
             .subscribeBy(
                 onComplete = {
-                    _updateFinishedCompleted.postValue(true)
-                },
-                onError = {
-                    Timber.e("error")
-                }
-            )
-    }
-
-    fun updateTaskImportant(model: TaskModel) {
-
-        disposables += updateTaskUseCase(model)
-            .subscribeBy(
-                onComplete = {
-                    _updateImportantCompleted.postValue(true)
+                    _updateCompleted.postValue(true)
                 },
                 onError = {
                     Timber.e("error")

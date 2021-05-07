@@ -8,7 +8,7 @@
   <string name="button_cancel">Hủy bỏ</string>
   <string name="button_create_category">Tạo danh sách</string>
   <string name="button_create_task">Tạo tác vụ</string>
-  <string name="button_delete">Huy</string>
+  <string name="button_delete">Hủy</string>
   <string name="new_category_hint">Nhập tiêu đề danh sách</string>
   <string name="new_task_hint">Nhập tác vụ</string>
   <string name="new_task">Thêm tác vụ</string>
