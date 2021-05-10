@@ -7,70 +7,44 @@ import io.reactivex.rxkotlin.subscribeBy
 import timber.log.Timber
 import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.model.TaskModel
-import vn.htv.fresher.todoapp.domain.usecase.category.GetCategoryUseCase
+import vn.htv.fresher.todoapp.domain.usecase.category.*
 import vn.htv.fresher.todoapp.domain.usecase.task.GetTaskListUseCase
 import vn.htv.fresher.todoapp.domain.usecase.task.GetTaskUseCase
 import vn.htv.fresher.todoapp.domain.usecase.task.SaveTaskUseCase
 import vn.htv.fresher.todoapp.domain.usecase.task.UpdateTaskUseCase
 import vn.htv.fresher.todoapp.presentation.common.BaseViewModel
 
-// enum class MainTaskItemType(val v: Int) {
-//  NOT_FINISH(0),
-//  FINISHED_STATE(1);
-//  companion object {
-//    fun from(value: Int) = values().first { it.v == value }
-//  }
-// }
-//
-// sealed class MainTaskItem(val type: MainTaskItemType) {
-//  data class Item(val model: MainTaskItemModel): MainTaskItem(MainTaskItemType.NOT_FINISH)
-//
-//  object TaskFinished: MainTaskItem(MainTaskItemType.FINISHED_STATE)
-// }
-//
-// data class MainTaskItemModel(
-//  val finished    : Boolean,
-//  val nameTask    : String,
-//  val important  : Boolean
-// ) {
-//
-// }
 
 class CategoryViewModel(
     private val getCategoryUseCase: GetCategoryUseCase,
     private val getTaskListUseCase: GetTaskListUseCase,
     private val getTaskUseCase: GetTaskUseCase,
     private val saveTaskUseCase: SaveTaskUseCase,
-    private val updateTaskUseCase: UpdateTaskUseCase
+    private val updateTaskUseCase: UpdateTaskUseCase,
+    private val updateCategoryUseCase: UpdateCategoryUseCase,
+    private val deleteCategoryUseCase: DeleteCategoryUseCase,
 ) : BaseViewModel() {
 
-//  val setImportant: LiveData<Boolean> get() = _setImportant
-//  private _val _setImportant = MutableLiveData<Boolean>(
+    val updateTaskCompleted: LiveData<Boolean> get() = _updateTaskCompleted
+    private val _updateTaskCompleted = MutableLiveData<Boolean>()
 
-//    val updateImportantCompleted: LiveData<Boolean> get() = _updateImportantCompleted
-//    private val _updateImportantCompleted = MutableLiveData<Boolean>()
-//
-//    val updateFinishedCompleted: LiveData<Boolean> get() = _updateFinishedCompleted
-//    private val _updateFinishedCompleted = MutableLiveData<Boolean>()
+    val updateCategoryCompleted: LiveData<Boolean> get() = _updateCategoryCompleted
+    private val _updateCategoryCompleted = MutableLiveData<Boolean>()
 
-    val updateCompleted: LiveData<Boolean> get() = _updateCompleted
-    private val _updateCompleted = MutableLiveData<Boolean>()
+    val deleteCategoryCompleted: LiveData<Boolean> get() = _deleteCategoryCompleted
+    private val _deleteCategoryCompleted = MutableLiveData<Boolean>()
 
     val addTaskCompleted: LiveData<Boolean> get() = _addTaskCompleted
     private val _addTaskCompleted = MutableLiveData<Boolean>()
+
     val itemCategory: LiveData<CategoryModel> get() = _itemCategory
     private val _itemCategory = MutableLiveData<CategoryModel>()
 
     val itemList: LiveData<List<TaskModel>> get() = _itemList
     private val _itemList = MutableLiveData<List<TaskModel>>()
 
-//    val itemTask: LiveData<TaskModel> get() = _itemTask
-//    private val _itemTask = MutableLiveData<TaskModel>()
 
     var categoryId: Long? = null
-
-    //  val catItemList: LiveData<List<CategoryModel>> get() = _catItemList
-//  private val _catItemList = MutableLiveData<List<CategoryModel>>()
 
     fun loadCategory() {
         val id = categoryId ?: return
@@ -85,26 +59,10 @@ class CategoryViewModel(
                 }
             )
     }
+
     fun loadData() {
-     val id = categoryId ?: return
-//  val getTaskObservable = getTaskListUseCase()
-//  val zipper = BiFunction<List<TaskModel>, List<TaskModel>, List<TaskModel>> { tasks1, tasks2 ->
-//    val list = mutableListOf<TaskModel>()
-//
-//    list.add(MainTaskItem.TaskFinished)
-//
-//    val taskItems = tasks1.map { t ->
-//      MainTaskItem.Item(
-//        MainTaskItemModel(
-//          finished = t.finished,
-//          nameTask = t.name,
-//          important = t.important
-//        )
-//      )
-//    }
-//    list.addAll(taskItems)
-//    list
-//  }
+        val id = categoryId ?: return
+
         disposables += getTaskListUseCase(id.toInt())
             .subscribeBy(
                 onSuccess = {
@@ -115,27 +73,6 @@ class CategoryViewModel(
                 }
             )
     }
-//    fun loadData2() {
-//        val id = categoryId ?: return
-//        disposables += getTaskUseCase(id.toInt())
-//            .subscribeBy(
-//                onSuccess = {
-//                    _itemTask.postValue(it)
-//                },
-//                onError = {
-//                    Timber.e("error")
-//                }
-//            )
-//    }
-//  disposables += getCategoryListUseCase()
-//      .subscribeBy(
-//           onSuccess = {
-//            _catItemList.postValue(it)
-//          },
-//          onError = {
-//            Timber.e("error")
-//          }
-//      )
 
     fun updateFinished(model: TaskModel) {
         updateTask(model.copy(finished = !model.finished))
@@ -145,35 +82,40 @@ class CategoryViewModel(
         updateTask(model.copy(important = !model.important))
     }
 
-//    fun updateTaskName(model: TaskModel) {
-//        disposables += updateTaskUseCase(model)
-//            .subscribeBy(
-//                onComplete = {
-//                    _updateNameCompleted.postValue()
-//                },
-//                onError = {
-//                    Timber.e("error")
-//                }
-//            )
-//    }
-//    fun updateTaskFinished(model: TaskModel) {
-//        disposables += updateTaskUseCase(model)
-//            .subscribeBy(
-//                onComplete = {
-//                    _updateFinishedCompleted.postValue(true)
-//                },
-//                onError = {
-//                    Timber.e("error")
-//                }
-//            )
-//    }
+    fun updateName(model: CategoryModel) {
+        updateCategory(model.copy(name = model.name))
+    }
 
     fun updateTask(model: TaskModel) {
 
         disposables += updateTaskUseCase(model)
             .subscribeBy(
                 onComplete = {
-                    _updateCompleted.postValue(true)
+                    _updateTaskCompleted.postValue(true)
+                },
+                onError = {
+                    Timber.e("error")
+                }
+            )
+    }
+
+    fun updateCategory(model: CategoryModel) {
+        disposables += updateCategoryUseCase(model)
+            .subscribeBy(
+                onComplete = {
+                    _updateCategoryCompleted.postValue(true)
+                },
+                onError = {
+                    Timber.e("error")
+                }
+            )
+    }
+
+    fun deleteCategory(model: CategoryModel) {
+        disposables += deleteCategoryUseCase(model)
+            .subscribeBy(
+                onComplete = {
+                    _deleteCategoryCompleted.postValue(true)
                 },
                 onError = {
                     Timber.e("error")

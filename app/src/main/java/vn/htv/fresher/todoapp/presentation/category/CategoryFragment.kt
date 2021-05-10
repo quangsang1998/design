@@ -5,17 +5,17 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import kotlinx.android.synthetic.main.fragment_category.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.threeten.bp.LocalDateTime
 import vn.htv.fresher.todoapp.R
 import vn.htv.fresher.todoapp.databinding.FragmentCategoryBinding
+import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.presentation.common.BaseFragment
 
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     private val viewModel by sharedViewModel<CategoryViewModel>()
-    // val mesage: String? = getArguments()?.getString("category")
+
     override val layoutId: Int
         get() = R.layout.fragment_category
 
@@ -46,9 +46,7 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
 
     override fun initUi() {
         super.initUi()
-//    cat.apply {
-//      text = mesage
-//    }
+
         recycleView1.apply {
             adapter = taskAdapter
         }
@@ -64,19 +62,27 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             }
         )
 
-//        viewModel.itemTask.observe(
-//            this,
-//            {
-//                taskAdapter.setItem(it)
-//            }
-//        )
-        viewModel.updateCompleted.observe(
+        viewModel.updateTaskCompleted.observe(
             this,
             {
                 viewModel.loadData()
             }
         )
 
+        viewModel.updateCategoryCompleted.observe(
+            this,
+            {
+                viewModel.loadCategory()
+            }
+        )
+
+        viewModel.deleteCategoryCompleted.observe(
+            this,
+            {
+                safeActivity.onBackPressed()
+                viewModel.loadCategory()
+            }
+        )
         viewModel.itemCategory.observe(
             this,
             {
@@ -84,9 +90,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
             }
         )
 
-//    viewModel.updateFinishedCompleted.observe(this, {
-//      viewModel.loadData()
-//    })
         viewModel.addTaskCompleted.observe(
             this@CategoryFragment,
             Observer {
@@ -96,6 +99,23 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
         )
     }
 
+//    inner class EventChangeName() {
+//        fun onNewName() {
+//            MaterialDialog(safeContext).show {
+//                title(R.string.new_name_category)
+//                input() { _, title ->
+//                    val model = TaskModel(
+//                        name = title.toString(),
+//                        catId = viewModel.categoryId?.toInt(),
+//                        createdAt = LocalDateTime.now()
+//                    )
+//                    viewModel.updateTask(model)
+//                }
+//                positiveButton(R.string.button_save)
+//                negativeButton(R.string.button_delete)
+//            }
+//        }
+//    }
     inner class EventAddTask() {
         fun onNewTask() {
             MaterialDialog(safeContext).show {
@@ -119,7 +139,6 @@ class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
      * Static definition
      */
     companion object {
-
         /**
          * Create MainFragment instance pattern
          */

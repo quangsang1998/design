@@ -45,6 +45,9 @@ class TaskAdapter(
 //        taskList.add(item)
 //        notifyDataSetChanged()
 //    }
+//    fun moveItem(from: RecyclerView.ViewHolder, to: RecyclerView.ViewHolder {
+//        val f = RecyclerView.ViewHolder.
+//    }
 
     inner class TaskViewHolder(itemView: TaskItemBinding) : RecyclerView.ViewHolder(itemView.root) {
         var binding: TaskItemBinding = itemView
