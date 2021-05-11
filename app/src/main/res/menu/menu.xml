@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:title="Đổi tên danh sách" />
-  <item android:title="Xóa danh sách" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+    android:id="@+id/updateName"
+    android:icon="@drawable/ic_baseline_brush_24"
+    android:title="Đổi tên danh sách"
+    app:showAsAction="collapseActionView" />
+
+  <item
+    android:id="@+id/delete"
+    android:icon="@drawable/ic_baseline_delete_24"
+    android:title="Xóa danh sách"
+    app:showAsAction="collapseActionView" />
+
 </menu>
