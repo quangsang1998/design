@@ -1,7 +1,5 @@
 package vn.htv.fresher.todoapp.di
 
-import android.content.Context
-import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import vn.htv.fresher.todoapp.data.repository.CategoryRepositoryImpl
@@ -11,9 +9,7 @@ import vn.htv.fresher.todoapp.domain.repository.CategoryRepository
 import vn.htv.fresher.todoapp.domain.repository.SubTaskRepository
 import vn.htv.fresher.todoapp.domain.repository.TaskRepository
 import vn.htv.fresher.todoapp.domain.usecase.category.*
-
 import vn.htv.fresher.todoapp.domain.usecase.subtask.*
-
 import vn.htv.fresher.todoapp.domain.usecase.task.*
 import vn.htv.fresher.todoapp.presentation.category.CategoryViewModel
 import vn.htv.fresher.todoapp.presentation.main.MainViewModel
@@ -24,14 +20,9 @@ val appModule = module {
 
   single<SchedulerProvider>(createdAtStart = true) { AppSchedulerProvider() }
 
-  // Repository
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
   single<CategoryRepository> { CategoryRepositoryImpl(get(), get()) }
   single<SubTaskRepository> { SubTaskRepositoryImpl(get(), get()) }
   single<TaskRepository> { TaskRepositoryImpl(get(), get()) }
-  // UseCase
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   factory { DeleteCategoryUseCase(get()) }
   factory { GetCategoryListUseCase(get()) }
@@ -46,18 +37,11 @@ val appModule = module {
   factory { UpdateTaskUseCase(get()) }
 
   factory { DeleteSubTaskUseCase(get()) }
-  factory { GetSubTaskUseCase(get())}
+  factory { GetSubTaskUseCase(get()) }
   factory { GetSubTaskListUseCase(get()) }
   factory { SaveSubTaskUseCase(get()) }
   factory { UpdateSubTaskUseCase(get()) }
 
-
-
-
-  // ViewModel
-  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
   viewModel { MainViewModel(get(), get(), get(), get()) }
-  viewModel { CategoryViewModel(get(), get(), get(), get(), get(), get(), get()) }
-
+  viewModel { CategoryViewModel(get(), get(), get(), get(), get(), get()) }
 }
