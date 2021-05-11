@@ -12,6 +12,7 @@ import vn.htv.fresher.todoapp.domain.model.TaskModel
 import vn.htv.fresher.todoapp.presentation.common.BaseFragment
 
 class CategoryFragment : BaseFragment<FragmentCategoryBinding>() {
+
   private val viewModel by sharedViewModel<CategoryViewModel>()
 
   override val layoutId  : Int

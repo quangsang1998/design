@@ -13,5 +13,4 @@
     android:icon="@drawable/ic_baseline_delete_24"
     android:title="Xóa danh sách"
     app:showAsAction="collapseActionView" />
-
 </menu>

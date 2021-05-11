@@ -21,44 +21,45 @@ class CategoryViewModel(
   private val updateTaskUseCase      : UpdateTaskUseCase,
   private val updateCategoryUseCase  : UpdateCategoryUseCase
 ) : BaseViewModel() {
-    val addTaskCompleted: LiveData<Boolean> get() = _addTaskCompleted
-    private val _addTaskCompleted = MutableLiveData<Boolean>()
 
-    val deleteCategoryCompleted: LiveData<Boolean> get() = _deleteCategoryCompleted
-    private val _deleteCategoryCompleted = MutableLiveData<Boolean>()
+  val addTaskCompleted: LiveData<Boolean> get() = _addTaskCompleted
+  private val _addTaskCompleted = MutableLiveData<Boolean>()
 
-    val itemCategory: LiveData<CategoryModel> get() = _itemCategory
-    private val _itemCategory = MutableLiveData<CategoryModel>()
+  val deleteCategoryCompleted: LiveData<Boolean> get() = _deleteCategoryCompleted
+  private val _deleteCategoryCompleted = MutableLiveData<Boolean>()
 
-    val itemList: LiveData<List<TaskModel>> get() = _itemList
-    private val _itemList = MutableLiveData<List<TaskModel>>()
+  val itemCategory: LiveData<CategoryModel> get() = _itemCategory
+  private val _itemCategory = MutableLiveData<CategoryModel>()
 
-    val updateTaskCompleted: LiveData<Boolean> get() = _updateTaskCompleted
-    private val _updateTaskCompleted = MutableLiveData<Boolean>()
+  val itemList: LiveData<List<TaskModel>> get() = _itemList
+  private val _itemList = MutableLiveData<List<TaskModel>>()
 
-    val updateCategoryCompleted: LiveData<Boolean> get() = _updateCategoryCompleted
-    private val _updateCategoryCompleted = MutableLiveData<Boolean>()
+  val updateTaskCompleted: LiveData<Boolean> get() = _updateTaskCompleted
+  private val _updateTaskCompleted = MutableLiveData<Boolean>()
 
-    var categoryId: Long? = null
+  val updateCategoryCompleted: LiveData<Boolean> get() = _updateCategoryCompleted
+  private val _updateCategoryCompleted = MutableLiveData<Boolean>()
 
-    fun loadCategory() {
-      val id = categoryId ?: return
+  var categoryId: Long? = null
 
-      disposables += getCategoryUseCase(id)
-        .subscribeBy(
-          onSuccess = {
-            _itemCategory.postValue(it)
-          },
-          onError = {
-            Timber.e("error")
-          }
-        )
-    }
+  fun loadCategory() {
+    val id = categoryId ?: return
 
-    fun loadData() {
-      val id = categoryId ?: return
+    disposables += getCategoryUseCase(id)
+      .subscribeBy(
+        onSuccess = {
+          _itemCategory.postValue(it)
+        },
+        onError = {
+          Timber.e("error")
+        }
+      )
+  }
 
-      disposables += getTaskListUseCase(id.toInt())
+  fun loadData() {
+    val id = categoryId ?: return
+
+    disposables += getTaskListUseCase(id.toInt())
       .subscribeBy(
         onSuccess = {
           _itemList.postValue(it)
@@ -67,66 +68,66 @@ class CategoryViewModel(
           Timber.e("error")
         }
       )
-    }
+  }
 
-    fun updateFinished(model: TaskModel) {
-      updateTask(model.copy(finished = !model.finished))
-    }
+  fun updateFinished(model: TaskModel) {
+    updateTask(model.copy(finished = !model.finished))
+  }
 
-    fun updateImportant(model: TaskModel) {
-      updateTask(model.copy(important = !model.important))
-    }
+  fun updateImportant(model: TaskModel) {
+    updateTask(model.copy(important = !model.important))
+  }
 
-    fun updateName(model: CategoryModel) {
-      updateCategory(model.copy(name = model.name))
-    }
+  fun updateName(model: CategoryModel) {
+    updateCategory(model.copy(name = model.name))
+  }
 
-    fun updateTask(model: TaskModel) {
-      disposables += updateTaskUseCase(model)
-        .subscribeBy(
-          onComplete = {
-            _updateTaskCompleted.postValue(true)
-          },
-          onError = {
-            Timber.e("error")
-          }
-        )
-    }
+  fun updateTask(model: TaskModel) {
+    disposables += updateTaskUseCase(model)
+      .subscribeBy(
+        onComplete = {
+          _updateTaskCompleted.postValue(true)
+        },
+        onError = {
+          Timber.e("error")
+        }
+      )
+  }
 
-    fun updateCategory(model: CategoryModel) {
-      disposables += updateCategoryUseCase(model)
-        .subscribeBy(
-          onComplete = {
-            _updateCategoryCompleted.postValue(true)
-          },
-          onError = {
-            Timber.e("error")
-          }
-        )
-    }
+  fun updateCategory(model: CategoryModel) {
+    disposables += updateCategoryUseCase(model)
+      .subscribeBy(
+        onComplete = {
+          _updateCategoryCompleted.postValue(true)
+        },
+        onError = {
+          Timber.e("error")
+        }
+      )
+  }
 
-    fun deleteCategory(model: CategoryModel) {
-      disposables += deleteCategoryUseCase(model)
-        .subscribeBy(
-          onComplete = {
-            _deleteCategoryCompleted.postValue(true)
-          },
-          onError = {
-            Timber.e("error")
-          }
-        )
-    }
+  fun deleteCategory(model: CategoryModel) {
+    disposables += deleteCategoryUseCase(model)
+      .subscribeBy(
+        onComplete = {
+          _deleteCategoryCompleted.postValue(true)
+        },
+        onError = {
+          Timber.e("error")
+        }
+      )
+  }
 
-    fun addNewTask(model: TaskModel) {
-      disposables += saveTaskUseCase(model)
-        .subscribeBy(
-          onComplete = {
-            _addTaskCompleted.postValue(true)
-            Timber.i("saved task success")
-          },
-          onError = {
-            Timber.e(it.toString())
-          }
-        )
-    }
+  fun addNewTask(model: TaskModel) {
+    disposables += saveTaskUseCase(model)
+      .subscribeBy(
+        onComplete = {
+          _addTaskCompleted.postValue(true)
+          Timber.i("saved task success")
+        },
+        onError = {
+          Timber.e(it.toString())
+        }
+      )
+  }
 }

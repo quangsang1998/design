@@ -16,6 +16,7 @@ import vn.htv.fresher.todoapp.domain.model.CategoryModel
 import vn.htv.fresher.todoapp.presentation.common.BaseActivity
 
 class CategoryActivity : BaseActivity() {
+
   private val viewModel by viewModel<CategoryViewModel>()
 
   override val fragment  : Fragment
@@ -26,8 +27,7 @@ class CategoryActivity : BaseActivity() {
 
   override fun init() {
     super.init()
-
-  val catId = intent.getLongExtra("category", 0)
+    val catId = intent.getLongExtra("category", 0)
     viewModel.categoryId = catId
   }
 
@@ -61,7 +61,7 @@ class CategoryActivity : BaseActivity() {
       else -> {
       }
     }
-      return super.onOptionsItemSelected(item)
+    return super.onOptionsItemSelected(item)
   }
 
   fun onNewName() {
@@ -70,16 +70,16 @@ class CategoryActivity : BaseActivity() {
       input(
         prefill = supportActionBar?.title.toString()
       ) { _, title ->
-        val model = CategoryModel(
-          name       = title.toString(),
-          id         = viewModel.categoryId?.toInt(),
-          createdAt  = LocalDateTime.now()
-        )
-        viewModel.updateName(model)
-        supportActionBar?.title = model.name
+          val model = CategoryModel(
+            name       = title.toString(),
+            id         = viewModel.categoryId?.toInt(),
+            createdAt  = LocalDateTime.now()
+          )
+          viewModel.updateName(model)
+          supportActionBar?.title = model.name
         }
-        positiveButton(R.string.button_save)
-        negativeButton(R.string.button_delete)
+      positiveButton(R.string.button_save)
+      negativeButton(R.string.button_delete)
     }
   }
 
